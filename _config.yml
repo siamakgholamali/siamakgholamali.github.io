@@ -1,16 +1,16 @@
 # Site settings
-title: 			مهدی حسینی‌پژوه
+title: 			سیامک غلامعلی
 description: 	طراح و توسعه‌دهنده رابط کاربری
 baseurl: 		"/"
 url: 				"http://siamakgholamali.ir"
-name: 			مهدی حسینی‌پژوه
+name: 			سیامک غلامعلی
 job: 				طراح و توسعه‌دهنده رابط کاربری
-avatar: 			/images/mehdi hoseini 2.jpg
-email: 			mehdi.hoseinipajooh@gmail.com
-github: 			https://github.com/Mehdi-Hp
-twitter: 		https://twitter.com/Mehdi_HoseiniP
-facebook: 		https://www.facebook.com/profile.php?id=100001867037114
-instagram: 		https://instagram.com/mehdi_hp/
+avatar: 			/images/siamak.jpg
+email: 			siamak.gholamali@hotmail.com
+github: 			https://github.com/siamakgholamali
+twitter: 		https://twitter.com/siamakgholamali
+facebook: 		https://www.facebook.com/siamak.gholamalii
+instagram: 		https://instagram.com/siamakgholamali
 
 # Build settings
 markdown: 	kramdown
