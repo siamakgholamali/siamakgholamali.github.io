@@ -72,7 +72,7 @@ main {
       }
       &:after {
          content: "a";
-         font-family: mehdihpir;
+         font-family: siamak;
          margin: $padding-general*2;
          @media screen and (max-width: 42.5em) {
             display: none;
@@ -83,7 +83,7 @@ main {
       &:before {
          @media screen and (max-width: 42.5em) {
             content: "a";
-            font-family: mehdihpir;
+            font-family: siamak;
             margin-left: $padding-general;
          }
          @media screen and (max-width: 28.75em) {

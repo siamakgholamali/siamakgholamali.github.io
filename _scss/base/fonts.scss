@@ -22,19 +22,19 @@
 }
 
 @font-face {
-  font-family: "mehdihpir";
-  src:url("/fonts/mehdihpir.eot");
-  src:url("/fonts/mehdihpir.eot?#iefix") format("embedded-opentype"),
-    url("/fonts/mehdihpir.woff") format("woff"),
-    url("/fonts/mehdihpir.ttf") format("truetype"),
-    url("/fonts/mehdihpir.svg#mehdihpir") format("svg");
+  font-family: "siamak";
+  src:url("/fonts/siamak.eot");
+  src:url("/fonts/siamak.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/siamak.woff") format("woff"),
+    url("/fonts/siamak.ttf") format("truetype"),
+    url("/fonts/siamak.svg#siamak") format("svg");
   font-weight: normal;
   font-style: normal;
 
 }
 
 [data-icon]:before {
-  font-family: "mehdihpir" !important;
+  font-family: "siamak" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -48,7 +48,7 @@
 
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
-  font-family: "mehdihpir" !important;
+  font-family: "siamak" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
