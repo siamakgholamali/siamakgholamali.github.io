@@ -1,0 +1,18 @@
+.devices-nav {
+	display: flex;
+	justify-content: flex-start;
+	width: 100%;
+	padding: 0 $padding-general;
+	&__button {
+		@include flex-center;
+		padding: $padding-general;
+		background-color: $blue-chill;
+		border-radius: $border-radius-general;
+		box-shadow: $box-shadow-general;
+		color: $black-light-1;
+		font-size: 1.3em;
+	}
+	@media screen and (min-width: 48em) {
+		display: none;
+	}
+}

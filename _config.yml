@@ -1,0 +1,29 @@
+# Site settings
+title: 			مهدی حسینی‌پژوه
+description: 	طراح و توسعه‌دهنده رابط کاربری
+baseurl: 		"/"
+url: 				"http://siamakgholamali.ir"
+name: 			مهدی حسینی‌پژوه
+job: 				طراح و توسعه‌دهنده رابط کاربری
+avatar: 			/images/mehdi hoseini 2.jpg
+email: 			mehdi.hoseinipajooh@gmail.com
+github: 			https://github.com/Mehdi-Hp
+twitter: 		https://twitter.com/Mehdi_HoseiniP
+facebook: 		https://www.facebook.com/profile.php?id=100001867037114
+instagram: 		https://instagram.com/mehdi_hp/
+
+# Build settings
+markdown: 	kramdown
+kramdown:
+  input:    GFM
+highlighter:   pygments
+include: 		['.htaccess']
+keep_files: 	['.git']
+paginate: 		8
+paginate_path: /page:num/
+permalink:     /blog/:title
+sass:
+  sass_dir: _scss
+  style:    :compressed
+gems:
+  - jekyll-sitemap

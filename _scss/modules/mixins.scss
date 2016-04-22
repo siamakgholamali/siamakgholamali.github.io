@@ -1,0 +1,10 @@
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin font-icon {
+	font-size: $font-size-for-icons;
+	margin-left: 0.25rem;
+}

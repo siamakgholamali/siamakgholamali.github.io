@@ -1,0 +1,152 @@
+.posts {
+	padding: 2vh 1vw;;
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	max-width: 800px;
+	margin-right: $sidebar-width + 16px;
+	@media screen and (max-width: 48em) {
+	  margin: 0vh 1vw;
+	  width: 100%;
+	}
+}
+
+.post {
+	padding: $padding-general;
+	margin-bottom: $margin-bottom;
+	flex-grow: 1;
+	border-bottom: 2px solid $white-dark-1;
+	@media screen and (max-width: 48em) {
+		margin-bottom: $margin-bottom - 0.5rem;
+	}
+	&__header {
+		margin-bottom: $margin-bottom;
+	}
+	&__link {
+		line-height: 1.4;
+		display: block;
+		margin-bottom: $margin-bottom;
+	}
+	&__title {
+		color: $black;
+
+		&--top {
+			color: $blue-chill-dark-1;
+		}
+	}
+	&__info {
+		line-height: 1.3;
+		color: $black-light-2;
+	}
+	&__time,
+	&__tags {
+		display: flex;
+		align-items: center;
+	}
+	&__time:before,
+	&__tags:before {
+		@include font-icon;
+		font-size: 1em;
+	}
+	&__content {
+		line-height: 1.8;
+		color: $black;
+		font-family: $font-family-for-content;
+		font-size: 1rem;
+		display: flex;
+		flex-direction: column;
+	}
+	&__face {
+		@include flex-center;
+		margin-bottom: $padding-general;
+	}
+	&__face-img {
+		max-width: 100%;
+	}
+}
+
+.dylt {
+	@include flex-center;
+	border: 2px solid $blue-chill-dark-1;
+	border-radius: $border-radius-general;
+	padding: $padding-general;
+	color: $black;
+	flex-wrap: wrap;
+	line-height: 2;
+	&__right {
+		@include flex-center;
+	}
+	&__left {
+		@include flex-center;
+	}
+	&__hire-me {
+		@include flex-center;
+		background: $blue-chill;
+		max-height: 2rem;
+		padding: 0.25rem;
+		margin: 0 0.25rem;
+		border-radius: $border-radius-general;
+		color: $white;
+	}
+}
+
+.share-it {
+	margin: 0 0.3rem;
+	display: inline-flex;
+	justify-content: space-between;
+	width: 5rem;
+	align-items: center;
+	&__item {
+		color: $blue-chill-light-1;
+		display: flex;
+  		font-size: 1.4em;
+	}
+}
+
+.gmp-button {
+	padding: 0 1rem;
+	margin-top: 0.5rem;
+	border: 1px solid rgb(57, 158, 83);
+	font-family: Mitra;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.1em;
+	border-radius: 2px;
+	color: $blue-chill;
+	transition: transform 0.2s;
+	&--mail.gmp-button--mail {
+		@extend .gmp-button;
+		color: $white;
+		background: $blue-chill;
+	}
+
+	&--twitter {
+		@extend .gmp-button;
+	}
+
+	&--facebook {
+		@extend .gmp-button;
+	}
+
+	&:after {
+		display: none;
+	}
+}
+
+.gmp-button:hover {
+	transform: translateY(2px);
+	transition: transform 0.2s;
+}
+
+.gmp-button:before {
+	margin-left: 0.25rem;
+}
+
+#disqus_thread {
+	background: $white;
+	box-shadow: $box-shadow-general;
+	padding: $padding-general;
+	border-radius: $border-radius-general;
+	margin-bottom: 5rem;
+}

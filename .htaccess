@@ -1,0 +1,734 @@
+Options +FollowSymlinks
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)/$ /$1 [L,R=301]
+
+#These lines block agents commonly used to harvest URLs and email addresses.
+#One of the uses of such agents is to gather URLs for subseqent referral spamming
+#by a large number of hosts. Thus, preventing their access may, by itself, decrease
+#the amount of referral spam you receive.
+RewriteCond %{HTTP_USER_AGENT} ^.*Indy\ Library.*$ [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^.*larbin2\.6\.3\@unspecified.*$ [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^.*Mail\.Ru.*$ [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Microsoft\ URL\ Control.*$ [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Mozilla/4\.0\ .*Win\ 9x\ 4\.90.*$ [NC,OR]
+
+#This one used to be the user agent for anonymizer---which was fine with me---but
+#recently it has been left as the user agent for what appear to be malicious bots
+#based on their behavior, so I've decided to block it for now.
+RewriteCond %{HTTP_USER_AGENT} ^.*TuringOS.*$ [NC,OR]
+
+#These lines block bots that use your bandwidth for their own commercial reasons.
+RewriteCond %{HTTP_USER_AGENT} ^abot.*$ [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^aipbot.*$ [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^Linkwalker$ [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^.*nameprotect.*$ [NC,OR]
+RewriteCond %{HTTP_USER_AGENT} ^.*TurnitinBot.*$ [NC,OR]
+
+#These rewrite conditions might be more conservative than some people want to be.
+#They deny referrers with a domain name structure with hyphens, such as
+#word-word-whatever.com or word-word.word.com. If you think you might get legitimate
+#hits from domains with that name structure, just delete these conditions.
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?[a-z]+\-[a-z]+\-.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?[a-z]+\-[a-z]\.[a-z].*$ [NC,OR]
+
+#These conditions are based on keywords and deny referrers containing the words
+#anywhere in the URL.
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)2002sogwipo(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)3marketeer(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)4best(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)4free(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)4hs8(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)4u(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)6q(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)a2z(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)aa.com$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ablejobs(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)accepted.cc$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)accutane(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)adipex(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)adspoll(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)adult(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)adwave(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ad\-links(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)aeterna(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)affiliate_program(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)afterclub(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)agedata(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)agentpro(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)allkinds(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)alleghany(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)allegra(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)alprazolam(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)alumnicards(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)amateurvoetbal(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ambien(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)anal(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)anti\-spyware(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)antiquejunkyard(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)aponte(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)applyonline(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ar.gs$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ar.kz$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)arkadia(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)artisticlandscapes(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)artzone(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)asian\-flu(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)asiansquare(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)associates(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ativan(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)atlanta(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)atlanticsquare(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)atlantis\-asia(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)atschool(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)atspace(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)atwork(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)audiolibrary(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)autoclan(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)axion(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)azian(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)b51(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)baccarat(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)bank(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)belinked(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)betting(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)bigmouthful(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)bitlocker(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)biz(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)blackjack(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)black\-jack(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)bnetsol(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)bontril(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)brokers(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)buddhistnetwork(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)buy\-(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)c0ck(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ca\-america(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)canadianlabels(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)candiria(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)carisoprodol(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)casino(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cash(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cheap(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)chile\-online(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)churchzone(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cialis(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)clenbuterol(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)computerxchange(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)codeine(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)condo(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)conecrusher(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)conjuratia(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)consultanthub(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)contact\-lens(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cpa(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)craps(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)creampie(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)credit(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)crepesuzette(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cumbunker(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cumgirls(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cumshot(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cumswap(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cutezone(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)cytomel(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)dddd(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)debt(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)deltawebs(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)devil(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)dianejones(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)didrex(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)diet(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)differin(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)digitalbomb(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)direcway(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)divorce\-lawyer(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)dongs(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)doobu(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)download\_mp3(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)drronsmiles(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)drugs\-order(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)dvd(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)dynamiczone(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)dyndns(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)e\-mp3(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)e\-pills(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)e\-site(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)easy(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ebanon(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)edthompson(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)egghoo(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ejaculation(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)emedia(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)enterprises(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)episodesusdbz(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)erocity(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)escort(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)europesquare(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)everlastingproductions(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)evilplots(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)farm(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)fastin(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)fearcrow(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)feathersandfur(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)fidelity(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)financeit(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)findteam(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)flexeril(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)flu\-vaccine(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)footiebanter(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)formula42(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)foundation(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)freakycheats(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)free\-download(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)free\-online(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)free\-scan(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)freecontacts(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)freedating(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)freehost(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)freevideos(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)friends4chat(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)fuckfest(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)funsmart(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)fusker(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)future\-2000(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)g1v(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)gambling(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)gb.com$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)generic\-online(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)globaleducation(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)greathosting(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)grendosac(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)gurutrading(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)gvwebnet(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hatena(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hdic(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)healthzone(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)herhymen(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hhhh(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)holdem(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hold\-em(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hotavenue(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)horny(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hotchick(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hotele(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hotelse(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)house(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)hydrocodone(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)i\-web(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)iblogs(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)id\=ballaire$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)imitrex(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)incest(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)indexr(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)infolibria(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ingyensms(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)insurance(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)investmentprogram(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)isacommie(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)isclever(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)isgenius(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)isyummy(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)italiancharms(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)j\-broadcasting(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)jackpot(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)jerusalem(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)jobruler(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)jroundup(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)juris\-net(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)kasino(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)keno(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)koolpages(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)krantas(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)kranken(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)kredit(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ladysroom(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lamisil(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)latinas(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)learnhowtoplay(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)learningphp(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)learnonline(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lesbian(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)levitra(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lewww(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lighting(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)linx2go(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lite(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)livedatematch(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)liveplanets(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)loan(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)locators(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lookingsharp(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lookscool(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lookscute(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lorazepam(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lortab(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lovesbaby(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lovesfriday(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lovesgames(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lovesmovies(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)lowinterest(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)macromdeal(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mall(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mature(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mediasolutions(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)megago(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)merchant(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)milf(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mista(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)money(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)monkeybet(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)monstersofcock(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)morphine(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mortgage(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mp3\-downloads(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mp3downloads(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mrfriendly(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)multipointlocks(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)music\-downloads(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)musicbox(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)my\-health(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)mydivx(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)myhost(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)nasty(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)natureavenue(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)nemasoft(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)neogen.ro$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)nude(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)officedistrict(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)onlineshops(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)online\-drug(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)online\-medication(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)online\-prescription(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)online\-slot(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)oraltv(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)orderonline(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ourpack(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)oxycontin(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)pacificsquare(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)pain\-killers(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)party\-poker(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)pawnauctions(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)petsellers(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)pharmacies(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)pharmacy(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)pharm\-on(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)phentermine(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)phuck(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)p0ker(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)poker(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)porn(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)prji(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)profit(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)progressive\-slot(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)propecia(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)protzonbeer(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)printmyip(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)private\-detectives(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)properties(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)prozac(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ps2cool(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)psxtreme(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)pus*y(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)qpoi(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)quicktrivia(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)qvwebnet(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)qwoteonline(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)rateandscore(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)realestate(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)realtor(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)realty(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)registrarprice(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)rhinosvideos(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)rifp(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ro7kalbe(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)rohkalby(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)romanticmaui(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ronnieazza(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)roulette(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)safeboys(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)salerampage(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)samiuls(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)savethisplanet(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)schlampe(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)scienceave(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)search\-god(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)searchsure(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)seducetips(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)seekemployment(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)sendit2u(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)seniordate(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)seostudy(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)sex(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)shivapage(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)showcasegifts(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)sildenafil(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)sleaze(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)slots(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)slot\-machine(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)smogless(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)society\-health(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)soma(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)software.biz$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)spermswapping(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)sport(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)spb.ru$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)streamway(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)sviolett(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)svsting(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)swingers(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)symmetrel(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tambernat(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tamiflu(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tax(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)taylorbow(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tecrep(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)teen(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)terashells(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)texas(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)thai(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)theebest(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)theinvestblog(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)themymoviessite(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)thetechzone(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)threethreethree(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ticketlawyer(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ticketsbot(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tirebowl(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tits(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tonercartridges(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)top\-wins(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)top500(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)trackerom(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tramadol(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tranzestore(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)treocat(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tugjobs(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)tvsetmp3(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)twink(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ua\-princeton(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ultram(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)underwearx(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)uninventory(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)upindex(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)usatransactions(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)useful\-pills(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)v1h(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vadoptions(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)valium(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vcats(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vcrap(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vegas\-hair(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)viagra(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vicodin(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vinhas(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)visor(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vmasterpiece(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vmillion(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vmouse(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vneighbor(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vpawn(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vplaymate(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vpshs(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vquality(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vrajitor(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vselling(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vsymphony(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vthought(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)vtoy(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)warez(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)watches(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)weight(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)weighweb(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)whackingpud(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)what.cc$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)whymarketing(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)whoisbase(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)win\-2005(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)windowsoftware(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)womenoncam(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)wsop(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)ws\-op(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)xanax(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)xxx(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)yacht(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)yelucie(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)yourincome(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)yourmorningshot(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)yourpsychic(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)yunza(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)zakona(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)zebeneer(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)zoloft(-|.).*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*(-|.)zyrtec(-|.).*$ [NC,OR]
+
+#This series of conditions denies referrals from specific domain names.
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?300play.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?3333.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?42tower.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?4u.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?academyofmusic.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?accessthepeace.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?acrs.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?adminshop.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?advancedmoneyloans.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?affiliplanet.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?alphacarolinas.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?anightofcheese.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?apart\-?design.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?auktion.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?autogewinne24.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?autospiele24.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?babay.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?bigyonet.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?blondesoncams.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?blue.sexer.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?booksandpages.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?brandimensions.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?browserwindowcleaner.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?business2fun.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?chat\-nett.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?crescentarian.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?darkangelclan.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?deals.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?delorentos.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?digitaltwist.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*downloads.blogspot.com.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?euromillionen.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?eurotexans.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?eurowins.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?flowershopentertainment.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?freshness.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?fruitologist.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?.*gallery.blogspot.com.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?games.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?gargzdai.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?geldspiele24.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?gsm-support.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?gzltax.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?geldspiele24.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?goovle.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?handmade2000.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?happychappywacky.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?hawk.tcm-services.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?heil-fasten.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?healthstones.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?hermosa.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?immobiliengewinne24.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?investment4cashiers.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?jailbreakiphone3gs.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?jamesthesailorbasher.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?jmsimonr.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?jfcadvocacy.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?jennifer-hawkins-video-pics.blogspot.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?justanotherdomainname.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?kardtoons.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?keywordmaster.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?linkerdome.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?lipitormedication.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?locators.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?longermalternatives.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?maloylawn.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?masteroftheblasterhill.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?mature--young.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?metapannas.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?middlecay.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?midnightlaundries.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?mikeapartment.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?mouthfreshners.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?mondialcoral.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?mp-forum.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?music-art-friends.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?mykeyboardisbroken.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?naughtykittys.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?nehrucollege.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?newreleaseonline.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?nextfrontiersonline.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?nustramosse.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?oiline.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?old-young.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?one2onemag.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?ourownweddingsong.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?ourtownhelps.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?owned.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?paradiserecreations.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?parkviewsoccer.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?pay4link.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?persist-pharma.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?pharmacy-2003.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?popwow.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?psychexams.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?qw8.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?realestateonthehill.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?reisegewinne24.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?referrer-script.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?rimpim.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?rootfood.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?sedonaretreat.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?shemale.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?single66.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?slamhost.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?stmaryonline.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?sophiesplace.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?southernxstables.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?spielepsychatrie.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?sportsparent.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?superdolphins.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?superface.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?suttonjames.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?t35.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?targetindustries.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?thatwhichis.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?thorcarlson.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?topgewinn24.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?topspiele24.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?top-deals*.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?top-site.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?trafficmagnet.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?transexual.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?trueuninstall.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?uchase.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?uk\-contact.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?usa\-wins.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?valeofglamorganconservatives.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?vendini.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?vietnamdatingservices.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?vinegarlemonshots.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?wadoo.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?webmasterplan.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?whincer.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?whitpagestrippers.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?worldfilebooklets.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?wseeker.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?xmaster.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?xopy.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?xxx.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?yahh+oo.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?yourdomain.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?(www\.)?zalaszentgrot.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?www14\.blogspot.*$ [NC,OR]
+RewriteCond %{HTTP_REFERER} ^(http://)?12\.163\.72\.13.*$
+RewriteRule .* - [F,L]
+
+#For serious offenders or spammers who send referral spam directed to several different
+#domains, I block access by IP address. Listed here are the worst offenders. This method
+#may be more conservative than some people want to be; if so, just leave this part out of
+#your .htaccess file.
+<Files 403.shtml>
+order allow,deny
+allow from all
+</Files>
+deny from 12.22.85.3
+deny from 147.230.50.100
+deny from 148.244.150.58
+deny from 165.138.213.230
+deny from 193.159.244.70
+deny from 193.170.65.247
+deny from 194.102.61.162
+deny from 195.239.211.235
+deny from 200.167.245.13
+deny from 200.168.105.137
+deny from 200.212.114.3
+deny from 200.56.224.5
+deny from 201.199.61.182
+deny from 203.162.27.
+deny from 206.212.187.26
+deny from 207.195.241.4
+deny from 207.245.84.70
+deny from 207.44.154.35
+deny from 207.72.66.5
+deny from 208.18.125.231
+deny from 208.53.138.8
+deny from 208.66.195.0/22
+deny from 209.213.127.46
+deny from 209.71.222.11
+deny from 211.157.
+deny from 211.249.118.
+deny from 212.179.154.242
+deny from 212.199.163.143
+deny from 212.199.169.153
+deny from 212.235.18.85
+deny from 212.235.66.240
+deny from 212.91.171.252
+deny from 213.130.118.121
+deny from 213.56.68.29
+deny from 213.56.73.3
+deny from 213.91.217.116
+deny from 216.128.69.140
+deny from 216.139.176.60
+deny from 216.190.203.162
+deny from 216.204.237.10
+deny from 217.120.32.183
+deny from 217.121.100.124
+deny from 217.132.202.119
+deny from 217.160.75.202
+deny from 218.20.116.80
+deny from 218.5.27.115
+deny from 218.85.82.95
+deny from 218.85.83.168
+deny from 220.160.2.167
+deny from 220.160.4.75
+deny from 220.181.26.108
+deny from 220.226.245.148
+deny from 221.3.235.
+deny from 24.69.156.45
+deny from 61.144.185.75
+deny from 61.172.65.176
+deny from 61.30.47.21
+deny from 61.30.47.22
+deny from 62.148.230.
+deny from 62.168.39.178
+deny from 62.193.231.242
+deny from 62.194.10.194
+deny from 62.219.59.122
+deny from 63.145.202.2
+deny from 63.148.99.234
+deny from 63.252.226.68
+deny from 64.141.68.16
+deny from 64.34.166.88
+deny from 64.34.168.29
+deny from 64.34.200.200
+deny from 64.92.171.106 #layeredtech
+deny from 65.75.139.90
+deny from 65.75.146.170
+deny from 65.75.166.110
+deny from 65.75.175.30
+deny from 65.77.131.66
+deny from 65.94.44.50
+deny from 65.94.45.31
+deny from 66.150.40.221
+deny from 66.199.247.74
+deny from 66.246.252.87
+deny from 66.246.252.88
+deny from 66.254.99.174
+deny from 66.33.197.209
+deny from 66.93.178.158
+deny from 66.98.152.93
+deny from 66.98.162.34
+deny from 67.15.130.23
+deny from 67.15.202.35
+deny from 68.208.4.19
+deny from 69.0.197.227
+deny from 69.156.204.43
+deny from 69.163.158.82
+deny from 69.50.170.122
+deny from 69.50.170.162
+deny from 72.232. #layeredtech
+deny from 72.36.199.154
+deny from 80.132.64.103
+deny from 80.237.140.233
+deny from 80.58.11.107
+deny from 80.58.22.107
+deny from 80.58.4.107
+deny from 80.95.
+deny from 81.169.169.201
+deny from 81.4.89.10
+deny from 82.103.65.
+deny from 82.81.204.164
+deny from 82.81.228.82
+deny from 84.189.
+deny from 84.244.5.173
+deny from 87.228.59.40
+deny from 89.169.244.169
+deny from 89.169.247.175

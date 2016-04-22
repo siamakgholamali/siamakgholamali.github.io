@@ -1,0 +1,112 @@
+---
+type: intro
+---
+<html>
+
+   {% include head.html %}
+
+   <link rel="prerender" href="blog">
+
+</head>
+
+<body>
+   <main>
+      <section class="me">
+         <div class="avatar">
+            <img class="avatar__img" src="{{ site.avatar }}" alt="مهدی حسینی‌پژوه" />
+         </div>
+         <div class="info">
+            <span class="info__name">{{ site.title }}</span>
+            <span class="info__job">{{ site.description }}</span>
+         </div>
+      </section>
+      <section class="soc-scape-blocking-ial">
+         <a class="soc-scape-blocking-ial__link--blog" href="blog" data-icon="q">وبلاگ</a>
+         <a class="soc-scape-blocking-ial__link--twitter" href="{{ site.twitter }}" data-icon="b">توییتر</a>
+         <a class="soc-scape-blocking-ial__link--github" href="{{ site.github }}" data-icon="k">گیت‌هاب</a>
+         <a class="soc-scape-blocking-ial__link--mail" href="mailto:{{ site.email }}" data-icon="l">ایمیل</a>
+      </section>
+   </main>
+
+   <script type="text/javascript">
+      // Get Browser-Specifc Prefix
+      function getBrowserPrefix() {
+
+         // Check for the unprefixed property.
+         if ('hidden' in document) {
+            return null;
+         }
+
+         // All the possible prefixes.
+         var browserPrefixes = ['moz', 'ms', 'o', 'webkit'];
+
+         for (var i = 0; i < browserPrefixes.length; i++) {
+            var prefix = browserPrefixes[i] + 'Hidden';
+            if (prefix in document) {
+               return browserPrefixes[i];
+            }
+         }
+
+         // The API is not supported in browser.
+         return null;
+      }
+
+      // Get Browser Specific Hidden Property
+      function hiddenProperty(prefix) {
+         if (prefix) {
+            return prefix + 'Hidden';
+         } else {
+            return 'hidden';
+         }
+      }
+
+      // Get Browser Specific Visibility State
+      function visibilityState(prefix) {
+         if (prefix) {
+            return prefix + 'VisibilityState';
+         } else {
+            return 'visibilityState';
+         }
+      }
+
+      // Get Browser Specific Event
+      function visibilityEvent(prefix) {
+         if (prefix) {
+            return prefix + 'visibilitychange';
+         } else {
+            return 'visibilitychange';
+         }
+      }
+
+      // Get Browser Prefix
+      var prefix = getBrowserPrefix();
+      var hidden = hiddenProperty(prefix);
+      var visibilityState = visibilityState(prefix);
+      var visibilityEvent = visibilityEvent(prefix);
+
+      document.addEventListener(visibilityEvent, function(event) {
+         if (!document[hidden]) {
+            $(".avatar__loader").addClass("avatar__loader--show");
+            $(".avatar__img").addClass("avatar__img--show");
+            $(".intro__avatar").addClass("intro__avatar--show");
+            $(".intro__info").addClass("intro__info--show");
+            $(".intro__soc-scape-blocking-ial").addClass("intro__soc-scape-blocking-ial--show");
+            $(".soc-scape-blocking-ial__link").addClass("soc-scape-blocking-ial__link--show");
+         }
+      });
+
+      $( document ).ready(function() {
+         if (document.visibilityState == "visible") {
+            $(".avatar__loader").addClass("avatar__loader--show");
+            $(".avatar__img").addClass("avatar__img--show");
+            $(".intro__avatar").addClass("intro__avatar--show");
+            $(".intro__info").addClass("intro__info--show");
+            $(".intro__soc-scape-blocking-ial").addClass("intro__soc-scape-blocking-ial--show");
+            $(".soc-scape-blocking-ial__link").addClass("soc-scape-blocking-ial__link--show");
+         }
+      });
+   </script>
+
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+{% include head.html %}
+
+<body>
+
+	<main>
+
+		{% include sidebar.html %}
+
+		{% if page.title %}
+			{% include devices-nav.html %}
+		{% endif %}
+
+		{{ content }}
+
+	</main>
+
+</body>
+
+</html>

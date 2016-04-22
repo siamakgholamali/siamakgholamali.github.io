@@ -1,0 +1,50 @@
+.footer {
+	@include flex-center;
+	color: $black-light-2;
+	font-family: $font-family-for-content;
+	font-size: 0.8rem;
+	flex-direction: column;
+	letter-spacing: -1px;
+	margin-top: 5rem;
+}
+
+.powered-by {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-logical-width: 30px;
+
+	&__text {
+		margin-left: 0.5rem;
+	}
+
+	&__image {
+		height: 60px;
+	}
+
+	&:hover {
+		filter: grayscale(100%);
+		transition: filter 0.3s;
+	}
+}
+
+.licenses {
+	margin-top: 0.5rem;
+	padding-top: 0.5rem;
+	border-top: 1px solid $white-dark-1;
+
+	&__text {
+		@media screen and (max-width: 53.75em) {
+			line-height: 1.8;
+			text-align: center;
+			display: block;
+		}
+	}
+
+	&__text--link {
+		padding: 0.15rem 0.3rem;
+		border-radius: 2px;
+		background: $white-dark-2;
+		color: $black-light-1;
+	}
+}

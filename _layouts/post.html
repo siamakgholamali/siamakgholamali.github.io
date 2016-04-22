@@ -1,0 +1,60 @@
+---
+layout: default
+type: post
+comments: true
+---
+<section class="posts">
+	<article class="post">
+		<header class="post__header">
+			<a class="post__link js-post__link" href="{{ post.url }}">
+				<h4 class="post__title--top">
+					{{ page.toptitle }}
+				</h4>
+				<h2 class="post__title">
+					{{ page.title }}
+				</h2>
+			</a>
+			<section class="post__info">
+				<time class="post__time" data-icon="i">
+					<h6>
+						{{ page.jalali }}
+					</h6>
+				</time>
+				<h6 class="post__tags" data-icon="j">
+					{{ page.tags }}
+				</h6>
+			</section>
+		</header>
+		<article class="post__content">
+			{{ content }}
+		</article>
+	</article>
+
+	<section class="dylt">
+		<div class="dylt__right">
+			<span class="dylt__text">
+				از این مطلب خوشتون اومد؟
+			</span>
+			<a class="dylt__hire-me" href="/work">
+				من رو استخدام کنید
+			</a>
+		</div>
+		<div class="dylt__left">
+			<span class="dylt__text">
+				یا اون رو به اشتراک بگذارید:
+			</span>
+			<section class="share-it">
+				<a class="share-it__item" href="https://twitter.com/intent/tweet?text={{ page.title }}&url=http://mehdihp.ir{{ page.url }}" target="_blank" data-icon="b">
+				</a>
+				<a class="share-it__item" href="https://www.facebook.com/sharer/sharer.php?t={{ page.title }}&u=http://mehdihp.ir{{ page.url }}" target="_blank" data-icon="f">
+				</a>
+				<a class="share-it__item" href="https://plus.google.com/share?url=http://mehdihp.ir{{ page.url }}" target="_blank" data-icon="r">
+				</a>
+			</section>
+		</div>
+	</section>
+	
+	{% include comments.html %}
+
+	{% include footer.html %}
+</section>

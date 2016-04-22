@@ -1,0 +1,41 @@
+@keyframes me {
+   0% {
+      width: 0;
+      opacity: 0;
+   }
+   80% {
+      opacity: 1;
+   }
+   100% {
+      width: 100%;
+      opacity: 1;
+   }
+}
+
+@keyframes info__name {
+   0% {
+      opacity: 0;
+      transform: scale(0.6);
+   }
+   100% {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+@for $i from 1 through 4 {
+   $time: #{($i / 8) + 3s};
+   @keyframes social__link--#{$i} {
+      0% {
+         opacity: 0;
+         transform: scale(0.6);
+      }
+      100% {
+         opacity: 1;
+         transform: scale(1);
+      }
+   }
+   .soc-scape-blocking-ial > a:nth-child(#{$i}) {
+      animation: social__link--#{$i} 0.3s $time $animation-mode-2 forwards;
+   }
+}

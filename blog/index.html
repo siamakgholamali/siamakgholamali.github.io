@@ -1,0 +1,44 @@
+---
+layout: default
+type: home
+---
+<section class="posts">
+	{% for post in site.posts %}
+	<article class="post">
+		<header class="post__header">
+			<a class="post__link js-post__link" href="{{ post.url }}">
+				<h4 class="post__title--top">
+					{{ post.toptitle }}
+				</h4>
+				<h2 class="post__title">
+					{{ post.title }}
+				</h2>
+			</a>
+			<div class="post__info">
+				<time class="post__time" data-icon="i">
+					<h6>{{ post.jalali }}</h6>
+				</time>
+				<h6 class="post__tags" data-icon="j">
+					{{ post.tags }}
+				</h6>
+			</div>
+		</header>
+		<div class="post__face">
+			<img class="post__face-img" src="{{ post.face }}">
+		</div>
+		<article class="post__content">
+			{{ post.custom-excerpt }}
+		</article>
+	</article>
+	{% endfor %}
+
+	{% include footer.html %}
+</section>
+
+<script>
+	$(".js-post__link").each(function() {
+		$(this).hover(function() {
+			$(this).parents(".post").toggleClass("post--hovered");
+		});
+	});
+</script>
